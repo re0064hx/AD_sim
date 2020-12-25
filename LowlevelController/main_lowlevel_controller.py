@@ -1,8 +1,12 @@
+import sys
+sys.path.append('../')
 import math
 import numpy as np
-import utility as utils
 
-class Controller():
+from SimulatorUtils import simulator_settings as sets
+
+
+class MainController():
     def __init__(self):
         self.e1 = 0.0
         self.e2 = 0.0
@@ -21,7 +25,7 @@ class Controller():
         based on Kanayama's method.
         '''
         K2 = 0.05
-        K3 = 0.1
+        K3 = 0.5
         rho = 0
         yaw_ref = np.arctan2(path.cy[idx]-path.cy[idx-1], path.cx[idx]-path.cx[idx-1])
         print("yaw_ref:", yaw_ref, " theta:", car.theta)
@@ -37,6 +41,7 @@ class Controller():
 
     def pure_pursuit(self, car, path, pidx):
         idx, idx_vhcl, Lf = path.search_target_index(car)
+        yaw_ref = np.arctan2(path.cy[idx]-path.cy[idx-1], path.cx[idx]-path.cx[idx-1])
         ref = np.array([path.cx[idx], path.cy[idx], yaw_ref])
         self.calc_error(car, ref)
 
