@@ -53,8 +53,7 @@ class SimulatorMain():
                 # 制御演算
                 delta, vhcl_id = self.controller.pure_pursuit(Car0, self.trajectory_planner, target_idx)
                 # delta, _ = self.controller.kanayama_method(Car0, self.trajectory_planner, vhcl_idx)
-                accel_cmd = self.controller.velocity_control(20.0, Car0.V, 0.033)
-                # accel_cmd = 0.0
+                accel_cmd = self.controller.velocity_control(10.0, Car0.V, 0.033)
 
                 # [Step5] Update simulation environment
                 # 車両状態更新
