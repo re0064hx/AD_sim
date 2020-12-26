@@ -5,12 +5,34 @@ import numpy as np
 
 from SimulatorUtils import simulator_settings as sets
 
+class PID():
+    def __init__(self, Kp_recv, Ki_recv, Kd_recv):
+        self.Kp = Kp_recv    # Proportial term gain
+        self.Ki = Ki_recv    # Integral term gain
+        self.Kd = Kd_recv    # Differencial term gain
+        self.error_P = 0.0
+        self.error_P_pre = 0.0
+        self.error_I = 0.0
+        self.error_D = 0.0
+    
+    def PID_control(self, ref_value, act_value, dt):
+        self.error_P = ref_value - act_value
+        self.error_I += self.error_P * dt
+        self.error_D = (self.error_P - self.error_P_pre) / dt
+        self.error_P_pre = self.error_P
+
+        term_proportial = self.Kp * self.error_P
+        term_integral = self.Ki * self.error_I
+        term_differential = self.Kd * self.error_D
+
+        return (term_proportial + term_integral + term_differential)
 
 class MainController():
     def __init__(self):
         self.e1 = 0.0
         self.e2 = 0.0
         self.e3 = 0.0
+        self.pid_velocity_controller = PID(0.5, 0.01, 0.2)
         print("Controller sucsessfully initialized.")
 
     def calc_error(self, car, ref):
@@ -63,3 +85,8 @@ class MainController():
 
     def sliding_mode_control(self, car, path, idx):
         return delta, idx
+
+    def velocity_control(self, v_ref, v_act, dt):
+        print("v_ref:", v_ref, " v_act:", v_act)
+        accel_cmd = self.pid_velocity_controller.PID_control(v_ref, v_act, dt)
+        return accel_cmd

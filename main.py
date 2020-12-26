@@ -21,19 +21,15 @@ class SimulatorMain():
         self.trajectory_planner = motionplanner.MainMotionPlanner()
         print("Initialized")
 
-    def draw_image(self):
-        # Generate simulator images
-        tmp = 0
-
     def simulation(self):
         for n in range(sets.Num_episodes):
             ''' === Setup Simulator Environment === '''
             # Set each vehicle's parameters
-            Car0 = vhclmodel.MainVehicleModel(0, 0, 18, 0, 0, 0, 0, 0, 4.8, 1.7, sets.Ts)
-            Car1 = vhclmodel.MainVehicleModel(10, 3.5, 18, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
-            Car2 = vhclmodel.MainVehicleModel(-5, 3.5, 16, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
-            Car3 = vhclmodel.MainVehicleModel(30, 0, 19, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
-            Car4 = vhclmodel.MainVehicleModel(-10, 0, 18, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
+            Car0 = vhclmodel.MainVehicleModel(0, 0, 0.0, 0, 0, 0, 0, 0, 4.8, 1.7, sets.Ts)
+            Car1 = vhclmodel.MainVehicleModel(10, 3.5, 1.0, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
+            Car2 = vhclmodel.MainVehicleModel(-5, 3.5, 1.0, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
+            Car3 = vhclmodel.MainVehicleModel(30, 0, 1.0, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
+            Car4 = vhclmodel.MainVehicleModel(-10, 0, 1.0, 0, 0, 0, 0, 0, 4.75, 1.75, sets.Ts)
             self.trajectory_planner.path_generation()
             target_idx, vhcl_idx, L_lat = self.trajectory_planner.search_target_index(Car0)
 
@@ -57,10 +53,12 @@ class SimulatorMain():
                 # 制御演算
                 delta, vhcl_id = self.controller.pure_pursuit(Car0, self.trajectory_planner, target_idx)
                 # delta, _ = self.controller.kanayama_method(Car0, self.trajectory_planner, vhcl_idx)
+                accel_cmd = self.controller.velocity_control(20.0, Car0.V, 0.033)
+                # accel_cmd = 0.0
 
                 # [Step5] Update simulation environment
                 # 車両状態更新
-                Car0.state_update(delta, 0.0)
+                Car0.state_update(delta, accel_cmd)
                 Car1.state_update(delta, 0.0)
                 Car2.state_update(delta, 0.0)
                 Car3.state_update(delta, 0.0)
