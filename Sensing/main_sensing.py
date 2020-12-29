@@ -58,22 +58,6 @@ class MainSensing():
         return EgoVehicle.theta - SurroundingVehicle.theta
     
     def generate_object_info(self, EgoVehicle, Car1, Car2, Car3, Car4):
-        # # Relative Position
-        # self.Objects.Object1.x_relative, self.Objects.Object1.y_relative = self.calc_relative_position(Car1, EgoVehicle)
-        # self.Objects.Object2.x_relative, self.Objects.Object2.y_relative = self.calc_relative_position(Car2, EgoVehicle)
-        # self.Objects.Object3.x_relative, self.Objects.Object3.y_relative = self.calc_relative_position(Car3, EgoVehicle)
-        # self.Objects.Object4.x_relative, self.Objects.Object4.y_relative = self.calc_relative_position(Car4, EgoVehicle)
-        # # Relative Velocity
-        # self.Objects.Object1.vx_relative, self.Objects.Object1.vy_relative = self.calc_relative_velocity(Car1, EgoVehicle)
-        # self.Objects.Object2.vx_relative, self.Objects.Object2.vy_relative = self.calc_relative_velocity(Car2, EgoVehicle)
-        # self.Objects.Object3.vx_relative, self.Objects.Object3.vy_relative = self.calc_relative_velocity(Car3, EgoVehicle)
-        # self.Objects.Object4.vx_relative, self.Objects.Object4.vy_relative = self.calc_relative_velocity(Car4, EgoVehicle)
-        # # Relative Angle
-        # self.Objects.Object1.theta_relative = self.calc_relative_angle(Car1, EgoVehicle)
-        # self.Objects.Object2.theta_relative = self.calc_relative_angle(Car2, EgoVehicle)
-        # self.Objects.Object3.theta_relative = self.calc_relative_angle(Car3, EgoVehicle)
-        # self.Objects.Object4.theta_relative = self.calc_relative_angle(Car4, EgoVehicle)
-
         # Relative Position
         self.Objects.VehicleObjects[0].x_relative, self.Objects.VehicleObjects[0].y_relative = self.calc_relative_position(Car1, EgoVehicle)
         self.Objects.VehicleObjects[1].x_relative, self.Objects.VehicleObjects[1].y_relative = self.calc_relative_position(Car2, EgoVehicle)
