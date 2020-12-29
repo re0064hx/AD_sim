@@ -42,6 +42,7 @@ class SimulatorMain():
 
                 ''' Autonomous Driving System '''
                 # [Step1] Sensing
+                self.perception.generate_object_info(Car0, Car1, Car2, Car3, Car4)
 
                 # [Step2] Behavior Planner 
                 
@@ -53,7 +54,7 @@ class SimulatorMain():
                 # 制御演算
                 delta, vhcl_id = self.controller.pure_pursuit(Car0, self.trajectory_planner, target_idx)
                 # delta, _ = self.controller.kanayama_method(Car0, self.trajectory_planner, vhcl_idx)
-                accel_cmd = self.controller.velocity_control(10.0, Car0.V, 0.033)
+                accel_cmd = self.controller.velocity_control(3.0, Car0.V, 0.033)
 
                 # [Step5] Update simulation environment
                 # 車両状態更新

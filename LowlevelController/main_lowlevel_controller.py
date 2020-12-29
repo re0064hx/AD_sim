@@ -87,6 +87,6 @@ class MainController():
         return delta, idx
 
     def velocity_control(self, v_ref, v_act, dt):
-        print("v_ref:", v_ref, " v_act:", v_act)
+        # print("v_ref:", v_ref, " v_act:", v_act)
         accel_cmd = self.pid_velocity_controller.PID_control(v_ref, v_act, dt)
         return accel_cmd
