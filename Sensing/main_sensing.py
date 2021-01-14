@@ -17,7 +17,6 @@ class Object():
 # ObjectInfomationクラスの定義
 class ObjectsInfo():
     def __init__(self):
-        # self.MaxDetectableObjects = 4
         self.VehicleObjects = [Object(0, "Car"), Object(1, "Car"), Object(2, "Car"), Object(3, "Car")]
 
 # Sensingクラスの定義
@@ -29,9 +28,7 @@ class MainSensing():
         self.theta_r = np.zeros([])
         self.rho_r = np.zeros([])
         self.Objects = ObjectsInfo()
-
-        # for instance in self.Objects.VehicleObjects:
-        #     print(instance.ObjectID)
+        self.MaxDetectableObjects = 4
 
         self.old_nearest_point_index = None
         print("Sensing module sucsessfully initialized.")

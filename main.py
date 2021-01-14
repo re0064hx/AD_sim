@@ -7,7 +7,7 @@ from SimulatorUtils import simulator_settings as sets
 from Animation import main_animation_module as animation
 from VehicleModel import main_vehicle_model as vhclmodel
 from Sensing import main_sensing as sensing
-# from BehaviorPlanner import main_behavior_planner as behaviorplanner
+from BehaviorPlanner import main_behavior_planner as behaviorplanner
 from MotionPlanner import main_motion_planner as motionplanner
 from LowlevelController import main_lowlevel_controller as lwlvcontroller
 
@@ -19,6 +19,7 @@ class SimulatorMain():
         self.perception = sensing.MainSensing()
         self.controller = lwlvcontroller.MainController()
         self.trajectory_planner = motionplanner.MainMotionPlanner()
+        self.decision_maker = behaviorplanner.MainBehaviorPlanner()
         print("Initialized")
 
     def simulation(self):
@@ -45,6 +46,7 @@ class SimulatorMain():
                 self.perception.generate_object_info(Car0, Car1, Car2, Car3, Car4)
 
                 # [Step2] Behavior Planner 
+                self.decision_maker.decide_ACC_target_vehicle(self.perception.Objects.VehicleObjects)
                 
                 # [Step3] Motion Planner
                 # 注視点更新
